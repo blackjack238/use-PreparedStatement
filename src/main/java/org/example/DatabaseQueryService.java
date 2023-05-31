@@ -18,7 +18,7 @@ public List<MaxProjectCountClient>  finMaxprojectsClient(){
 
     try {
         PreparedStatement statement= conn.prepareStatement(sqlQuery);
-
+       // statement.setInt(1, projectCountThreshold);
         ResultSet resultSet=statement.executeQuery();
         while (resultSet.next()){
             String name =resultSet.getString("name");
@@ -62,6 +62,7 @@ result.add(client);
 
         try {
             PreparedStatement statement= conn.prepareStatement(sqlQuery);
+
             ResultSet resultSet=statement.executeQuery();
             while (resultSet.next()){
                 int id =resultSet.getInt("id");
@@ -142,6 +143,26 @@ public void clear(){
         throw new RuntimeException(e);
     }
 }
+    public List<String>  findcolum(int num){
+        List<String> result=new ArrayList<>();
+        String sqlFile ="SELECT * FROM W WHERE column = ?";
+        String sqlQuery= readSqlFile(sqlFile);
+
+        try {
+            PreparedStatement statement = conn.prepareStatement(sqlQuery);
+                int value = num; // Значення, яке потрібно передати в запит
+                statement.setInt(1, value);
+
+                ResultSet resultSet = statement.executeQuery();
+
+result.add(String.valueOf(resultSet));
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return result;
+    }
     }
 
 
